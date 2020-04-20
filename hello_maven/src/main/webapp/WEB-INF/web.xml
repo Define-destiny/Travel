@@ -1,0 +1,55 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>CheckCodeServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.CheckCodeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActiveUserServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.ActiveUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginResultServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.LoginResultServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserExitServlet</servlet-name>
+        <servlet-class>it.home.travel.web.servlet.UserExitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckCodeServlet</servlet-name>
+        <url-pattern>/checkCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/registerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActiveUserServlet</servlet-name>
+        <url-pattern>/activeUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginResultServlet</servlet-name>
+        <url-pattern>/loginResultServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserExitServlet</servlet-name>
+        <url-pattern>/userExitServlet</url-pattern>
+    </servlet-mapping>
+</web-app>
