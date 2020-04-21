@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
             user.setStatus("N");
             user.setCode(UuidUtil.getUuid());
             crudUser.insertUser(user);
-            MailUtils.sendMail(user.getEmail(),"<a href='http://localhost:8888/activeUserServlet"+"?code="+user.getCode()
+            MailUtils.sendMail(user.getEmail(),"<a href='http://localhost:8888/user/active"+"?code="+user.getCode()
                     +"'>点击激活</a>","激活邮件");
             return true;
         }

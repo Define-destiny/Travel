@@ -24,5 +24,5 @@ public class JedisUtil {
         jp = new JedisPool(config,pro.getProperty("host"),Integer.parseInt(pro.getProperty("port")));
 
     }
-    public Jedis getJedis(){return jp.getResource();}
+    public static Jedis getJedis(){return jp.getResource();}
 }

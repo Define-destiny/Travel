@@ -59,7 +59,7 @@
         $(function () {
             $("#loginForm").submit(function () {
                 if (checkUserName() && checkPassWord() && checkCheckCode()){
-                    $.post("/loginServlet",$(this).serialize(),function (data) {
+                    $.post("/user/login",$(this).serialize(),function (data) {
                         if (data.flag){
                             location.href = "/index.html";
 						}else {
