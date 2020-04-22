@@ -8,11 +8,13 @@ import it.home.travel.domain.Route;
  */
 public interface RouteService {
     /**
-     * 根据类别进行分页查询
+     * 分页查询
      * @param cid
      * @param currentPage
      * @param pageSize
+     * @param name
      * @return
      */
-    public PageBean<Route> pageQuery(int cid, int currentPage, int pageSize);
+    PageBean<Route> pageQuery(int cid, int currentPage, int pageSize,String name);
+    Route datailQuery(int rid);
 }

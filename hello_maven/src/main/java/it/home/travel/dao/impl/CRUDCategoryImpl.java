@@ -23,4 +23,10 @@ public class CRUDCategoryImpl implements CRUDCategory {
         return list;
     }
 
+    @Override
+    public Category findByCid(int cid) {
+        String sql = "select * from tab_category where cid=?";
+        return jtl.queryForObject(sql,new BeanPropertyRowMapper<Category>(Category.class),cid);
+    }
+
 }

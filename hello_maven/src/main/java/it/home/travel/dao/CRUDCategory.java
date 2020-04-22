@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface CRUDCategory {
     List<Category> findAll();
+    Category findByCid(int cid);
 }
