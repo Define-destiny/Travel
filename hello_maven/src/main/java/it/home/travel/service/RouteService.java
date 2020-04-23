@@ -1,5 +1,6 @@
 package it.home.travel.service;
 
+import it.home.travel.domain.Favorite;
 import it.home.travel.domain.PageBean;
 import it.home.travel.domain.Route;
 
@@ -17,4 +18,7 @@ public interface RouteService {
      */
     PageBean<Route> pageQuery(int cid, int currentPage, int pageSize,String name);
     Route datailQuery(int rid);
+    Boolean isFavorite(int rid,int uid);
+    Boolean addFavorite(Favorite favorite);
+    PageBean<Route> pageCollectList(int currentPage, int priceDown,int priceUp,String name);
 }

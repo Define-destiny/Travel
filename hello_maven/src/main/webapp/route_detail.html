@@ -12,8 +12,13 @@
     <script type="text/javascript">
         $(function () {
             var search = location.search;
-            var rid = search.split("=")[1];$("#category").html("<a href=\"/\">首页</a>\n");
+            var rid = search.split("=")[1];
             load(rid);
+            $("#favorite").bind("click",function () {
+                $.get("/route/addFavorite",{rid:rid,date:new Date().getTime()},function (data) {
+                    load(rid);
+                },"json");
+            })
         });
         load = function (rid) {
             $.get("/route/routeDetail",{rid:rid},function (route) {
@@ -58,6 +63,24 @@
                 $("#hotMsg").text("1-2月出发，网付立享￥+"+route.price*2/1.8+"/2人起！爆款位置有限，抢完即止！");
 
             },"json");
+            $.get("route/isFavorite",{rid:rid},function (flag) {
+                if(flag.login){
+                    //用户已经登录
+                    if (flag.flag) {
+                        // 用户已经收藏过
+                        //<a  class="btn already" disabled="disabled">
+                        //设置收藏按钮的样式
+                        $("#favorite").addClass("already");
+                        $("#favorite").attr("disabled","disabled");
+
+                        //删除按钮的点击事件
+                        $("#favorite").unbind("click");
+                    }
+                }else{
+                    //用户未登录
+                    location.href = "/login.html";
+                }
+            });
         }
     </script>
 </head>
@@ -121,9 +144,7 @@
                 <div class="pros_price">
                     <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
                     <p class="collect">
-                        <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-
-                        <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <a class="btn" id="favorite"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
                         <span id="count">已收藏100次</span>
                     </p>
                 </div>        

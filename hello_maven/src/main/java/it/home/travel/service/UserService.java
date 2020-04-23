@@ -1,5 +1,7 @@
 package it.home.travel.service;
 
+import it.home.travel.domain.PageBean;
+import it.home.travel.domain.Route;
 import it.home.travel.domain.User;
 
 /**
@@ -9,4 +11,5 @@ public interface UserService {
     boolean registerUser(User user);
     boolean activeUser(String code);
     User loginUser(String username,String password);
+    PageBean<Route> pageQuery(int uid,int currentPage,int pageSize);
 }

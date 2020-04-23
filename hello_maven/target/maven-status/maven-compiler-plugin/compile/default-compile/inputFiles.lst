@@ -1,9 +1,11 @@
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\dao\CRUDRoute.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\service\impl\UserServiceImpl.java
+D:\IDEA Project\hello_maven\src\main\java\it\home\travel\dao\impl\CRUDFavoriteImpl.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\utils\Mail.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\Category.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\Seller.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\web\servlet\CheckCodeServlet.java
+D:\IDEA Project\hello_maven\src\main\java\it\home\travel\dao\CRUDFavorite.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\utils\JedisUtil.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\Route.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\PageBean.java
@@ -12,6 +14,7 @@ D:\IDEA Project\hello_maven\src\main\java\it\home\travel\service\CategoryService
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\dao\impl\CRUDRouteImgImpl.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\utils\UuidUtil.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\RouteImg.java
+D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\Favorite.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\domain\User.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\web\servlet\UserServlet.java
 D:\IDEA Project\hello_maven\src\main\java\it\home\travel\utils\JDBCUtil.java

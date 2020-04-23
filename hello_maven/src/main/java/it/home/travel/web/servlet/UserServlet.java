@@ -2,6 +2,8 @@ package it.home.travel.web.servlet;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.home.travel.domain.PageBean;
+import it.home.travel.domain.Route;
 import it.home.travel.domain.User;
 import it.home.travel.service.UserService;
 import it.home.travel.service.impl.UserServiceImpl;
@@ -164,5 +166,21 @@ public class UserServlet extends BaseServlet {
         String json = mapper.writeValueAsString(loginUser);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(json);
+    }
+    public void userFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取当前页面
+        request.setCharacterEncoding("utf-8");
+        String currentPage = request.getParameter("currentPage");
+        int cup = 1;
+        int pageSize = 12;
+        User loginUser = (User)request.getSession().getAttribute("loginUser");
+        if (currentPage!=null){
+            cup = Integer.parseInt(currentPage);
+        }
+        PageBean<Route> pageBean = userService.pageQuery(loginUser.getUid(), cup, pageSize);
+        String s = mapper.writeValueAsString(pageBean);
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(s);
+
     }
 }

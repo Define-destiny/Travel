@@ -15,6 +15,72 @@
            }
        </style>
        <script src="js/jquery-3.3.1.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $.get("/user/loginResult",{},function (loginUser) {
+                    if (!loginUser) {
+                        location.href = "/login.html";
+                    }else {
+                        load();
+                    }
+                },"json");
+
+            })
+            load = function (currentPage) {
+                $.get("/user/userFavorite",{currentPage:currentPage},function (pb) {
+                    var totalPage = pb.totalPage;
+                    var currentPage = pb.currentPage;
+                    var li = " <li class=\"threeword\"><a href=\"javascript:void(0)\" onclick='javascript:load()'>首页</a></li>";
+                    var privious_page = currentPage-1;
+                    if (privious_page<1){
+                        privious_page=1
+                    }
+                    li += "<li class= 'threeword'><a href='javascript:void(0)' onclick='javascript:load("+privious_page+")'>上一页</a></li>";
+                    var start=currentPage-4;
+                    var end=currentPage+5;
+                    if (totalPage<10){
+                        start = 1;
+                        end = totalPage
+                    }else {
+                        if (start<1){
+                            start=1;
+                            end=10;
+                        }
+                        if (end>totalPage) {
+                            end = totalPage;
+                            start=end-9;
+                        }
+                    }
+                    for (start;start<=end;start++){
+                        if (currentPage==start){
+                            li += "<li class='curPage'><a href='javascript:void(0)' onclick='javascript:load("+start+")'>"+start+"</a></li>";
+                        } else li += "<li><a href='javascript:void(0)' onclick='javascript:load("+start+")'>"+start+"</a></li>";
+                    }
+                    var next_page = currentPage+1;
+                    if (next_page>totalPage){
+                        next_page = totalPage;
+                    }
+                    li += " <li class=\"threeword\"><a href=\"javascript:void(0)\" onclick='javascript:load("+next_page+")'>下一页</a></li>";
+                    li += "<li class=\"threeword\"><a href=\"javascript:void(0)\" onclick='javascript:load("+totalPage+")'>末页</a></li>";
+                    $("#paging").html(li);
+                    var favorite_lis = "";
+                    for (var i=0;i<pb.list.length;i++) {
+                        favorite_lis += "                                <div class=\"col-md-3\">\n" +
+                            "                                    <a href='route_detail.html?rid="+pb.list[i].rid+"'>\n" +
+                            "                                        <img src=\""+pb.list[i].rimage+"\" style=\"width: 275px;\">\n" +
+                            "                                        <div class=\"has_border\">\n" +
+                            "                                            <h3>"+pb.list[i].routeIntroduce+"..........................................................................</h3>\n" +
+                            "                                            <div class=\"price\">网付价<em>￥</em><strong>"+pb.list[i].price+"</strong><em>起</em></div>\n" +
+                            "                                        </div>\n" +
+                            "                                    </a>\n" +
+                            "                                </div>";
+                    }
+                    $("#favorite").html(favorite_lis);
+                    window.scrollTo(0,0);
+
+                },"json");
+            }
+        </script>
     </head>
     <body>
     <!--引入头部-->
@@ -32,7 +98,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="row">
+                            <div class="row" id="favorite">
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
                                         <img src="images/collection_pic.jpg" alt="">
@@ -146,7 +212,7 @@
                     </div>
                 </div>
                 <div class="pageNum">
-                    <ul>
+                    <ul id="paging">
                         <li><a href="">首页</a></li>
                         <li class="threeword"><a href="#">上一页</a></li>
                         <li><a href="#">1</a></li>

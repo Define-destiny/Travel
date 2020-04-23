@@ -23,4 +23,12 @@ public interface CRUDRoute {
      * 根据rid查询当前路线信息
      */
     Route findByDetail(int rid);
+
+    boolean updateCountAddOne(int rid);
+
+    List<Route> findByPage(int uid,int start, int pageSize);
+
+    int findTotalCount(int priceDown,int priceUp,String name);
+
+    List<Route> findByPage(int priceDown,int priceUp,int start, int pageSize,String name);
 }

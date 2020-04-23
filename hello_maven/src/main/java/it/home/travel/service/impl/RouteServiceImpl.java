@@ -1,14 +1,8 @@
 package it.home.travel.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.home.travel.dao.CRUDCategory;
-import it.home.travel.dao.CRUDRoute;
-import it.home.travel.dao.CRUDRouteImg;
-import it.home.travel.dao.CRUDSeller;
-import it.home.travel.dao.impl.CRUDCategoryImpl;
-import it.home.travel.dao.impl.CRUDRouteImgImpl;
-import it.home.travel.dao.impl.CRUDRouteImpl;
-import it.home.travel.dao.impl.CRUDSellerImpl;
+import it.home.travel.dao.*;
+import it.home.travel.dao.impl.*;
 import it.home.travel.domain.*;
 import it.home.travel.service.RouteService;
 import it.home.travel.utils.JedisUtil;
@@ -22,6 +16,7 @@ public class RouteServiceImpl implements RouteService {
     private CRUDCategory crudCategory = new CRUDCategoryImpl();
     private CRUDSeller crudSeller = new CRUDSellerImpl();
     private CRUDRouteImg crudRouteImg = new CRUDRouteImgImpl();
+    private CRUDFavorite crudFavorite = new CRUDFavoriteImpl();
     private Jedis jedis = JedisUtil.getJedis();
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -71,4 +66,32 @@ public class RouteServiceImpl implements RouteService {
         route.setRouteImgList(routeImgs);
         return route;
     }
+
+    @Override
+    public Boolean isFavorite(int rid, int uid) {
+        Favorite favorite = crudFavorite.findByRidAUid(rid,uid);
+        return favorite!=null?true:false;
+    }
+
+    @Override
+    public Boolean addFavorite(Favorite favorite) {
+        if (crudFavorite.insertOne(favorite)){
+            crudRoute.updateCountAddOne(favorite.getRid());
+            return true;
+        }else return false;
+    }
+
+    @Override
+    public PageBean<Route> pageCollectList(int currentPage, int priceDown, int priceUp, String name) {
+        PageBean<Route> pageBean= new PageBean<>();
+        pageBean.setCurrentPage(currentPage);
+        int totalCount = crudRoute.findTotalCount(priceDown, priceUp, name);
+        pageBean.setTotalCount(totalCount);
+        pageBean.setTotalPage(totalCount%8==0?totalCount/8:totalCount/8+1);
+        pageBean.setPageSize(8);
+        pageBean.setList(crudRoute.findByPage(priceDown,priceUp,(currentPage-1)*8,8,name));
+        return pageBean;
+    }
+
+
 }
