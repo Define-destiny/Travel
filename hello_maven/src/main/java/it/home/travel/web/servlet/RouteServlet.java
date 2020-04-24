@@ -51,7 +51,7 @@ public class RouteServlet extends BaseServlet {
         if(pageSizeStr != null && pageSizeStr.length() > 0){
             pageSize = Integer.parseInt(pageSizeStr);
         }else{
-            pageSize = 5;
+            pageSize = 6;
         }
         String name = null;
         if (nameStr != null && nameStr.length()>0 && !nameStr.equals("null")){
@@ -65,6 +65,7 @@ public class RouteServlet extends BaseServlet {
         PageBean<Route> pb = routeService.pageQuery(cid, currentPage, pageSize, name);
         //4. 将pageBean对象序列化为json，返回
         String json = mapper.writeValueAsString(pb);
+        //System.out.println(json);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(json);
     }
@@ -162,6 +163,26 @@ public class RouteServlet extends BaseServlet {
         }
         //System.out.println("currentPage="+currentPage+"\tpriceDown="+priceDown+"\tpriceUp="+priceUp+"\trname="+rname);
         PageBean<Route> pageBean = routeService.pageCollectList(currentPage,priceDown,priceUp,rname);
+        String s = mapper.writeValueAsString(pageBean);
+        //System.out.println(s);
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(s);
+    }
+    public void timeChart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        //获取数据
+        request.setCharacterEncoding("utf-8");
+        String rnameStr = request.getParameter("rname");
+        String currentPageStr = request.getParameter("currentPage");
+        String rname = null;
+        if (rnameStr!=null && rnameStr.length()>0 && !rnameStr.equals("undefined") ){
+            rname = new String(rnameStr.getBytes("iso-8859-1"),"utf-8");
+        }else rname = "";
+        int currentPage = 1;
+        if (currentPageStr!=null && currentPageStr.length()>0 && !currentPageStr.equals("undefined")){
+            currentPage = Integer.parseInt(currentPageStr);
+        }
+        //System.out.println("currentPage="+currentPage+"\trname="+rname);
+        PageBean<Route> pageBean = routeService.pageTimeChart(currentPage,rname);
         String s = mapper.writeValueAsString(pageBean);
         //System.out.println(s);
         response.setContentType("application/json;charset=utf-8");

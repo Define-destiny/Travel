@@ -21,4 +21,5 @@ public interface RouteService {
     Boolean isFavorite(int rid,int uid);
     Boolean addFavorite(Favorite favorite);
     PageBean<Route> pageCollectList(int currentPage, int priceDown,int priceUp,String name);
+    PageBean<Route> pageTimeChart(int currentPage,String name);
 }

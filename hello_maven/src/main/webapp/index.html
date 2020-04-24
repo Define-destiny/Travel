@@ -24,6 +24,58 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        $(function () {
+            load();
+        })
+        load = function () {
+            $.get("route/collectList",{},function (pb) {
+                var popular_list = " <div class=\"row\">";
+                for (var i=0;i<4;i++) {
+                    popular_list += "<div class=\"col-md-3\">\n" +
+                        "                                <a href=\"route_detail.html?rid="+pb.list[i].rid+"\">\n" +
+                        "                                    <img src=\""+pb.list[i].rimage+"\" alt=\"\">\n" +
+                        "                                    <div class=\"has_border\">\n" +
+                        "                                        <h3>"+pb.list[i].routeIntroduce+"..............</h3>\n" +
+                        "                                        <div class=\"price\">网付价<em>￥</em><strong>"+pb.list[i].price+"</strong><em>起</em></div>\n" +
+                        "                                    </div>\n" +
+                        "                                </a>\n" +
+                        "                            </div>";
+                }
+                $("#popularity").html(popular_list);
+            },"json");
+            $.get("route/timeChart",{},function (pb) {``
+                var newest_list = " <div class=\"row\">";
+                for (var i=0;i<4;i++) {
+                    newest_list += "<div class=\"col-md-3\">\n" +
+                        "                                <a href=\"route_detail.html?rid="+pb.list[i].rid+"\">\n" +
+                        "                                    <img src=\""+pb.list[i].rimage+"\" alt=\"\">\n" +
+                        "                                    <div class=\"has_border\">\n" +
+                        "                                        <h3>"+pb.list[i].routeIntroduce+"..............</h3>\n" +
+                        "                                        <div class=\"price\">网付价<em>￥</em><strong>"+pb.list[i].price+"</strong><em>起</em></div>\n" +
+                        "                                    </div>\n" +
+                        "                                </a>\n" +
+                        "                            </div>";
+                }
+                $("#newest").html(newest_list);
+            },"json");
+            $.get("/route/routeList",{cid:5},function (pb) {
+                var inland_list = "<div class=\"row\" >";
+                for (var i=0;i<6;i++) {
+                    inland_list += "<div class=\"col-md-4\">\n" +
+                        "                                <a href=\"route_detail.html?rid="+pb.list[i].rid+"\">\n" +
+                        "                                    <img src=\""+pb.list[i].rimage+"\" alt=\"\">\n" +
+                        "                                    <div class=\"has_border\">\n" +
+                        "                                        <h3>"+pb.list[i].routeIntroduce+"..............</h3>\n" +
+                        "                                        <div class=\"price\">网付价<em>￥</em><strong>"+pb.list[i].price+"</strong><em>起</em></div>\n" +
+                        "                                    </div>\n" +
+                        "                                </a>\n" +
+                        "                            </div>";
+                }
+                $("#inland").html(inland_list);
+            },"json");
+        }
+    </script>
 
 </head>
 <body>
@@ -226,8 +278,8 @@
                 <div class="guonei_l">
                     <img src="images/guonei_1.jpg" alt="">
                 </div>
-                <div class="guone_r">
-                    <div class="row">
+                <div class="guone_r" id="inland">
+                    <div class="row" >
                         <div class="col-md-4">
                             <a href="route_detail.html">
 								<img src="images/jiangxuan_4.jpg" alt="">

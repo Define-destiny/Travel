@@ -93,5 +93,17 @@ public class RouteServiceImpl implements RouteService {
         return pageBean;
     }
 
+    @Override
+    public PageBean<Route> pageTimeChart(int currentPage, String name) {
+        PageBean<Route> pageBean= new PageBean<>();
+        pageBean.setCurrentPage(currentPage);
+        int totalCount = crudRoute.findTotalCount(0, name);
+        pageBean.setTotalCount(totalCount);
+        pageBean.setTotalPage(totalCount%8==0?totalCount/8:totalCount/8+1);
+        pageBean.setPageSize(8);
+        pageBean.setList(crudRoute.findByPageTime(0,(currentPage-1)*8,8,name));
+        return pageBean;
+    }
+
 
 }

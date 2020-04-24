@@ -31,4 +31,5 @@ public interface CRUDRoute {
     int findTotalCount(int priceDown,int priceUp,String name);
 
     List<Route> findByPage(int priceDown,int priceUp,int start, int pageSize,String name);
+    List<Route> findByPageTime(int cid,int start, int pageSize,String name);
 }

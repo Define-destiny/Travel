@@ -100,7 +100,27 @@ public class CRUDRouteImpl implements CRUDRoute {
             sb.append("and rname like ?");
             list.add("%"+name+"%");
         }
-        sb.append(" order by price desc limit ?,?");
+        sb.append(" order by count desc limit ?,?");
+        list.add(start);
+        list.add(pageSize);
+        sql = sb.toString();
+        return template.query(sql,new BeanPropertyRowMapper<Route>(Route.class),list.toArray());
+    }
+
+    @Override
+    public List<Route> findByPageTime(int cid, int start, int pageSize ,String name) {
+        String sql = "select * from tab_route where 1=1 ";
+        StringBuilder sb = new StringBuilder(sql);
+        List list = new ArrayList();
+        if (cid != 0) {
+            sb.append("and cid = ? ");
+            list.add(cid);
+        }
+        if (name!=null&&name.length()>0){
+            sb.append("and rname like ?");
+            list.add("%"+name+"%");
+        }
+        sb.append(" order by rdate desc limit ?,?");
         list.add(start);
         list.add(pageSize);
         sql = sb.toString();
